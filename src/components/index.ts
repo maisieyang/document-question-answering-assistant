@@ -13,3 +13,5 @@ export { CalloutBox } from './CalloutBox';
 export { VisualSeparator } from './VisualSeparator';
 export { MarkdownRenderer } from './MarkdownRenderer';
 export { QAReferenceList } from './QAReferenceList';
+export { GraphView } from './GraphView';
+export { RelatedDocuments } from './RelatedDocuments';

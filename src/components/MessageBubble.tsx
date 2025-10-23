@@ -4,15 +4,17 @@ import React from 'react';
 import { ChatMessage } from '../components/ChatWindow/types';
 import { MarkdownRenderer } from './MarkdownRenderer';
 import { MessageFeedback } from './MessageFeedback';
+import { RelatedDocuments } from './RelatedDocuments';
 
 interface MessageBubbleProps {
   message: ChatMessage;
   className?: string;
   onFeedback?: (messageId: string, feedback: 'like' | 'dislike') => void;
   isStreaming?: boolean;
+  showRelatedDocuments?: boolean;
 }
 
-export function MessageBubble({ message, className = '', onFeedback, isStreaming = false }: MessageBubbleProps) {
+export function MessageBubble({ message, className = '', onFeedback, isStreaming = false, showRelatedDocuments = false }: MessageBubbleProps) {
   const formatTime = (timestamp?: Date) => {
     if (!timestamp) return '';
     return timestamp.toLocaleTimeString('zh-CN', {
@@ -56,6 +58,21 @@ export function MessageBubble({ message, className = '', onFeedback, isStreaming
                           style={{ animationDuration: '1s' }}></span>
                   )}
                 </div>
+                
+                {/* 相关文档和知识图谱 - 仅在AI回复完成后显示 */}
+                {!isStreaming && showRelatedDocuments && (
+                  <div className="mt-6 mb-4">
+                    <RelatedDocuments 
+                      query={message.content}
+                      onDocumentClick={(pageId, title) => {
+                        console.log('Document clicked:', { pageId, title });
+                        // 跳转到 Confluence 页面
+                        const confluenceUrl = `https://miamvp.atlassian.net/wiki/spaces/~5c17318986407c7a2aeae3e6/pages/${pageId}`;
+                        window.open(confluenceUrl, '_blank');
+                      }}
+                    />
+                  </div>
+                )}
                 
                 {/* 消息操作栏 - 仅在流式结束后显示 */}
                 {!isStreaming && (

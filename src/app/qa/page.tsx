@@ -32,6 +32,7 @@ export default function QAPage() {
           message={message}
           onFeedback={onFeedback}
           isStreaming={isStreaming && message.role === 'assistant'}
+          showRelatedDocuments={message.role === 'assistant' && !isStreaming}
         />
         {message.role === 'assistant' && message.references?.length ? (
           <QAReferenceList references={message.references} />

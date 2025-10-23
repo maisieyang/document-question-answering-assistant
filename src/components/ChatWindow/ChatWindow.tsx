@@ -87,6 +87,7 @@ export function ChatWindow({
       message={message}
       onFeedback={onFeedback}
       isStreaming={isStreaming && message.role === 'assistant'}
+      showRelatedDocuments={message.role === 'assistant' && !isStreaming}
     />
   );
 

@@ -22,6 +22,8 @@ interface AnswerReferences {
   index: number;
   title: string;
   url?: string;
+  score?: number;
+  pageId?: string;
 }
 
 export interface AnswerResponse {
@@ -62,6 +64,8 @@ function buildContext(results: SearchResult[]): { context: string; references: A
         index: referenceIndex,
         title: result.chunk.title,
         url: result.chunk.sourceUrl,
+        score: result.score,
+        pageId: pageId,
       });
     }
 
